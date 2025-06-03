@@ -1,0 +1,30 @@
+@model List<ETicaret.Models.Product>
+
+@{
+    ViewData["Title"] = "Arama Sonuçları";
+}
+
+<h2 class="mb-4">"@ViewBag.Query" için arama sonuçları</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">Sonuç bulunamadı.</div>
+}
+else
+{
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height:200px; object-fit:cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Price ₺</p>
+                        <a href="/Product/Details/@product.Id" class="btn btn-sm btn-primary">İncele</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

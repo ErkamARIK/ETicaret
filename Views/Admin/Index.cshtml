@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Admin Paneli";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Admin Paneli</h2>
+
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Toplam Ürün</h5>
+                    <p class="card-text display-6">@ViewBag.ProductCount</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Toplam Kategori</h5>
+                    <p class="card-text display-6">@ViewBag.CategoryCount</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Toplam Kullanıcı</h5>
+                    <p class="card-text display-6">@ViewBag.UserCount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <a href="/Admin/Products" class="btn btn-outline-primary w-100 p-4">Ürünleri Yönet</a>
+        </div>
+        <div class="col">
+            <a href="/Admin/Categories" class="btn btn-outline-success w-100 p-4">Kategorileri Yönet</a>
+        </div>
+        <div class="col">
+            <a href="/Admin/Users" class="btn btn-outline-secondary w-100 p-4">Kullanıcıları Yönet</a>
+        </div>
+        <div class="col">
+            <a href="/Admin/Orders" class="btn btn-outline-dark w-100 p-4">Tüm Siparişler</a>
+        </div>
+        <div class="col">
+            <a href="/Admin/BannerSettings" class="btn btn-outline-warning w-100 p-4">Banner Ayarları</a>
+        </div>
+    </div>
+</div>

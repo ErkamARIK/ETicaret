@@ -1,0 +1,45 @@
+@model ETicaret.Models.Order
+@{
+    ViewData["Title"] = "Sipariş Detayı";
+}
+
+<div class="container mt-4">
+    <h2>Sipariş Detayı</h2>
+
+    <p><strong>Sipariş No:</strong> @Model.Id</p>
+    <p><strong>Tarih:</strong> @Model.OrderDate.ToShortDateString()</p>
+    <p><strong>Toplam:</strong> @Model.Total ₺</p>
+    <p><strong>Adres:</strong> @Model.Address.Title - @Model.Address.City</p>
+    <p><strong>Kart:</strong> **** **** **** @Model.Card.CardNumber.Substring(@Model.Card.CardNumber.Length - 4)</p>
+
+    <hr />
+    <h4>Ürünler</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Adet</th>
+                <th>Fiyat</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Product.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price ₺</td>
+                <td>
+                    <a href="/Product/Details/@item.ProductId" class="btn btn-sm btn-outline-secondary">Ürünü Gör</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <form asp-action="CancelOrder" method="post" class="mt-4">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger">Siparişi İptal Et</button>
+    </form>
+</div>

@@ -1,0 +1,106 @@
+@model ETicaret.Models.Product
+
+@{
+    ViewData["Title"] = "Ürün Detayı";
+}
+
+<style>
+    .image-wrapper {
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f9fa;
+        border-radius: 6px;
+    }
+    .image-wrapper img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="image-wrapper mb-4">
+                <img src="@Model.ImageUrl" alt="@Model.Name" />
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2>@Model.Name</h2>
+            <h4 class="text-primary">@Model.Price ₺</h4>
+            <a href="/Cart/AddToCart/@Model.Id" class="btn btn-success mb-2">Sepete Ekle</a>
+            <a href="/" class="btn btn-outline-secondary mb-2">← Geri Dön</a>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h4>Açıklama</h4>
+        <p>@Model.Description</p>
+    </div>
+
+    <div class="mt-5">
+        <h4>Yorumlar</h4>
+
+        @if (Model.Comments.Any())
+        {
+            <ul class="list-group mb-4">
+                @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+                {
+                    <li class="list-group-item">
+                        <strong>@comment.User.Email</strong> (@comment.CreatedAt.ToString("g")):
+                        <br />
+                        @comment.Text
+
+                        @using Microsoft.AspNetCore.Identity
+                        @inject UserManager<ApplicationUser> UserManager
+
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            var currentUserId = UserManager.GetUserId(User);
+                            var isAdmin = User.IsInRole("Admin");
+
+                            if (comment.UserId == currentUserId || isAdmin)
+                            {
+                                <div class="mt-2">
+                                    <a href="/Comment/Edit/@comment.Id" class="btn btn-sm btn-warning me-2">Düzenle</a>
+                                    <form asp-action="Delete" asp-controller="Comment" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@comment.Id" />
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yorumu silmek istediğinize emin misiniz?')">Sil</button>
+                                    </form>
+                                </div>
+                            }
+                        }
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Bu ürüne henüz yorum yapılmamış.</p>
+        }
+
+        @using Microsoft.AspNetCore.Identity
+        @inject UserManager<ApplicationUser> UserManager
+
+        @if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <form asp-controller="Comment" asp-action="Add" method="post">
+                <input type="hidden" name="ProductId" value="@Model.Id" />
+
+                <div class="mb-3">
+                    <label for="Text" class="form-label">Yorumunuz</label>
+                    <textarea name="Text" class="form-control" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Yorum Ekle</button>
+            </form>
+        }
+        else
+        {
+            <p class="text-muted">Yorum yapmak için <a href="/Account/Login">giriş yapmalısınız</a>.</p>
+        }
+    </div>
+</div>

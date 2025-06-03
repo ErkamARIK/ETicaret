@@ -1,0 +1,41 @@
+@model List<ETicaret.Models.Order>
+@{
+    ViewData["Title"] = "Siparişlerim";
+}
+
+<div class="container mt-4">
+    <h2>Siparişlerim</h2>
+
+    @if (!Model.Any())
+    {
+        <p>Hiç siparişiniz bulunmamaktadır.</p>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sipariş Tarihi</th>
+                    <th>Adres</th>
+                    <th>Kart</th>
+                    <th>Toplam</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.OrderDate.ToShortDateString()</td>
+                        <td>@order.Address.Title - @order.Address.City</td>
+                        <td>**** **** **** @order.Card.CardNumber.Substring(order.Card.CardNumber.Length - 4)</td>
+                        <td>@order.Total ₺</td>
+                        <td>
+                            <a href="/Account/OrderDetails/@order.Id" class="btn btn-sm btn-outline-info">Detaylar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

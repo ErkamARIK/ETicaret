@@ -1,0 +1,23 @@
+@model ETicaret.Models.Comment
+
+@{
+    ViewData["Title"] = "Yorumu Düzenle";
+}
+
+<div class="container mt-4">
+    <h2>Yorumu Düzenle</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ProductId" />
+
+        <div class="mb-3">
+            <label asp-for="Text" class="form-label">Yorum</label>
+            <textarea asp-for="Text" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Text" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a href="/Product/Details/@Model.ProductId" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

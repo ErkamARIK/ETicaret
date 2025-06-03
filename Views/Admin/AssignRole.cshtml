@@ -1,0 +1,21 @@
+@model ETicaret.ViewModels.AssignRoleViewModel
+
+@{
+    ViewData["Title"] = "Rol Ata";
+}
+
+<div class="container mt-4" style="max-width: 500px;">
+    <h2>@Model.Email kullanıcısına rol ata</h2>
+
+    <form asp-action="AssignRole" method="post">
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="mb-3">
+            <label asp-for="SelectedRole" class="form-label"></label>
+            <select asp-for="SelectedRole" asp-items="@(new SelectList(Model.AvailableRoles))" class="form-select"></select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a href="/Admin/Users" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

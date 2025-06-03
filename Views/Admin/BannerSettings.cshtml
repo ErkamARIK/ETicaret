@@ -1,0 +1,37 @@
+@model List<ETicaret.Models.Banner>
+
+@{
+    ViewData["Title"] = "Banner Ayarları";
+}
+
+<div class="container mt-4">
+    <h2>Yeni Banner Ekle</h2>
+
+    <form asp-action="BannerSettings" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="ImageFile" class="form-label">Yeni Banner Görseli</label>
+            <input type="file" class="form-control" name="ImageFile" />
+        </div>
+        <button type="submit" class="btn btn-primary">Ekle</button>
+    </form>
+
+    <hr />
+
+    <h4 class="mt-5">Mevcut Bannerlar</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+        @foreach (var banner in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <img src="@banner.ImageUrl" class="card-img-top" alt="Banner" style="max-height: 200px; object-fit: cover;" />
+                    <div class="card-body text-center">
+                        <form asp-action="DeleteBanner" method="post">
+                            <input type="hidden" name="id" value="@banner.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

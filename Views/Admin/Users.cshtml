@@ -1,0 +1,31 @@
+@model List<ETicaret.ViewModels.UserViewModel>
+
+@{
+    ViewData["Title"] = "Kullanıcılar";
+}
+
+<div class="container mt-4">
+    <h2>Kullanıcılar</h2>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>E-posta</th>
+                <th>Roller</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.Roles</td>
+                <td>
+                <a href="/Admin/AssignRole/@user.Id" class="btn btn-sm btn-outline-dark">Rol Ata</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

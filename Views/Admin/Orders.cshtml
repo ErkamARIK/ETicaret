@@ -1,0 +1,34 @@
+@model List<ETicaret.Models.Order>
+@{
+    ViewData["Title"] = "Tüm Siparişler";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Tüm Siparişler</h2>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Sipariş No</th>
+                <th>Kullanıcı</th>
+                <th>Tarih</th>
+                <th>Toplam</th>
+                <th>Adres</th>
+                <th>Kart</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.User.Email</td>
+                    <td>@order.OrderDate.ToShortDateString()</td>
+                    <td>@order.Total ₺</td>
+                    <td>@order.Address.Title - @order.Address.City</td>
+                    <td>**** **** **** @order.Card.CardNumber.Substring(order.Card.CardNumber.Length - 4)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

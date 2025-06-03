@@ -1,0 +1,23 @@
+@model ETicaret.ViewModels.EditProfileViewModel
+@{
+    ViewData["Title"] = "Profil Bilgilerini Düzenle";
+}
+
+<div class="container mt-4">
+    <h2>Bilgilerimi Güncelle</h2>
+
+    <form asp-action="EditProfile" method="post">
+        <div class="mb-3">
+            <label class="form-label">Kullanıcı Adı</label>
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Telefon Numarası</label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success">Kaydet</button>
+        <a href="/Account/Profile" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

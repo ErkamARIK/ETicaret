@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Ödeme Sayfası";
+    var addresses = ViewBag.Addresses as List<ETicaret.Models.Address>;
+    var cards = ViewBag.Cards as List<ETicaret.Models.CreditCard>;
+}
+
+<div class="container mt-4">
+    <h2>Ödeme Sayfası</h2>
+
+    <form asp-action="CompleteOrder" method="post">
+       <div class="mb-3">
+            <label class="form-label">Adres Seç</label>
+            @if (addresses != null && addresses.Any())
+            {
+                <select name="SelectedAddressId" class="form-select mb-2">
+                    @foreach (var address in addresses)
+                    {
+                        <option value="@address.Id">@address.Title - @address.City</option>
+                    }
+                </select>
+                <div>
+                    <a href="/Account/AddAddress" class="btn btn-sm btn-outline-secondary">+ Yeni adres kullan</a>
+                </div>
+            }
+            else
+            {
+                <p>Hiç adresiniz yok. <a href="/Account/AddAddress">Yeni adres ekle</a></p>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Kart Seç</label>
+            @if (cards != null && cards.Any())
+            {
+                <select name="SelectedCardId" class="form-select mb-2">
+                    @foreach (var card in cards)
+                    {
+                        <option value="@card.Id">**** **** **** @card.CardNumber.Substring(card.CardNumber.Length - 4)</option>
+                    }
+                </select>
+                <div>
+                    <a href="/Account/AddCard" class="btn btn-sm btn-outline-secondary">+ Farklı kart ile öde</a>
+                </div>
+            }
+            else
+            {
+                <p>Kayıtlı kart yok. <a href="/Account/AddCard">Yeni kart ekle</a></p>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-primary">Siparişi Tamamla</button>
+    </form>
+</div>

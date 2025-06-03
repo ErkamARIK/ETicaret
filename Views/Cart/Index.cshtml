@@ -1,0 +1,50 @@
+@model List<ETicaret.Models.CartItem>
+
+<div class="container mt-4">
+    <h2>Sepetim</h2>
+
+    @if (Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ürün</th>
+                    <th>Adet</th>
+                    <th>Birim Fiyat</th>
+                    <th>Toplam</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <a href="/Cart/Decrease/@item.ProductId" class="btn btn-sm btn-outline-secondary me-1">−</a>
+                                <span>@item.Quantity</span>
+                                <a href="/Cart/Increase/@item.ProductId" class="btn btn-sm btn-outline-secondary ms-1">+</a>
+                            </div>
+                        </td>
+
+                        <td>@item.Product.Price ₺</td>
+                        <td>@(item.Product.Price * item.Quantity) ₺</td>
+                        <td>
+                            <a href="/Cart/RemoveFromCart/@item.ProductId" class="btn btn-sm btn-danger">Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="d-flex gap-2 mt-4">
+            <a href="/Cart/Checkout" class="btn btn-success">Sepeti Onayla</a>
+            <a href="/Cart/Clear" class="btn btn-danger">Sepeti Temizle</a>
+        </div>
+    }
+    else
+    {
+        <p>Sepetiniz boş.</p>
+    }
+</div>

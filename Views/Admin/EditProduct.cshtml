@@ -1,0 +1,49 @@
+@model ETicaret.Models.Product
+@{
+    ViewData["Title"] = "Ürünü Düzenle";
+    var categories = ViewBag.Categories as List<SelectListItem>;
+}
+
+<div class="container mt-4">
+    <h2>Ürünü Düzenle</h2>
+
+    <form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label class="form-label">Ürün Adı</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Açıklama</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fiyat (₺)</label>
+            <input asp-for="Price" type="number" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Mevcut Görsel</label><br />
+            <img src="@Model.ImageUrl" alt="Ürün Resmi" class="img-thumbnail" width="200" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Yeni Görsel</label>
+            <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Kategori</label>
+            <select asp-for="CategoryId" asp-items="categories" class="form-select"></select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a href="/Admin/Products" class="btn btn-secondary">İptal</a>
+    </form>
+</div>
+
+<partial name="_ValidationScriptsPartial" />

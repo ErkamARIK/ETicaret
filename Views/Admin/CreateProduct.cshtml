@@ -1,0 +1,44 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ETicaret.Models.Product
+@{
+    ViewData["Title"] = "Yeni Ürün Ekle";
+    var categories = ViewBag.Categories as List<SelectListItem>;
+}
+
+<div class="container mt-4">
+    <h2>Yeni Ürün Ekle</h2>
+
+    <form asp-action="CreateProduct" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label">Ürün Adı</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Açıklama</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fiyat (₺)</label>
+            <input asp-for="Price" type="number" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Görsel Yükle</label>
+            <input type="file" name="ImageFile" class="form-control" accept="image/*" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Kategori</label>
+            <select asp-for="CategoryId" asp-items="categories" class="form-select"></select>   
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a href="/Admin/Products" class="btn btn-secondary">İptal</a>
+    </form>
+    <partial name="_ValidationScriptsPartial" />
+</div>
+
+

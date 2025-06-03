@@ -1,0 +1,34 @@
+@model List<ETicaret.Models.Address>
+@{
+    ViewData["Title"] = "Adreslerim";
+}
+
+<div class="container mt-4">
+    <h2>Adreslerim</h2>
+    <a href="/Account/AddAddress" class="btn btn-primary mb-3">Yeni Adres Ekle</a>
+
+    @if (Model.Any())
+    {
+        <ul class="list-group">
+            @foreach (var address in Model)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>@address.Title:</strong> @address.FullAddress, @address.City - @address.PostalCode
+                    </div>
+                    <div>
+                        <a href="/Account/EditAddress/@address.Id" class="btn btn-sm btn-warning me-2">Düzenle</a>
+                        <form asp-action="DeleteAddress" asp-route-id="@address.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz?')">Sil</button>
+                        </form>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>Hiç adres eklenmemiş.</p>
+    }
+</div>
+

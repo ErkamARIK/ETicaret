@@ -1,0 +1,37 @@
+@model ETicaret.Models.ApplicationUser
+@{
+    ViewData["Title"] = "Profilim";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Profil Bilgileri</h2>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <p><strong>Kullanıcı Adı:</strong> @Model.UserName</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+            <p><strong>Telefon:</strong> @Model.PhoneNumber</p>
+            <p><strong>Kayıt Tarihi:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy")</p>
+        </div>
+    </div>
+
+    <h4>Hesap Yönetimi</h4>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <a href="/Account/Addresses" class="btn btn-outline-primary w-100 p-3">Adreslerim</a>
+        </div>
+        <div class="col">
+            <a href="/Account/CreditCards" class="btn btn-outline-success w-100 p-3">Kartlarım</a>
+        </div>
+        <div class="col">
+            <a href="/Account/Orders" class="btn btn-outline-primary w-100 p-3">Siparişlerim</a>
+        </div>
+        <div class="col">
+            <a href="/Account/ChangePassword" class="btn btn-outline-danger w-100 p-3">Şifre Değiştir</a>
+        </div>
+        <div class="col">
+            <a href="/Account/EditProfile" class="btn btn-outline-info w-100 p-3">Bilgilerimi Düzenle</a>
+        </div>
+    </div>
+</div>

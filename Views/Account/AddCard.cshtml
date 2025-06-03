@@ -1,0 +1,30 @@
+@model ETicaret.Models.CreditCard
+@{
+    ViewData["Title"] = "Yeni Kart Ekle";
+}
+
+<div class="container mt-4">
+    <h2>Yeni Kredi Kartı Ekle</h2>
+
+    <form asp-action="AddCard" method="post">
+        <div class="mb-3">
+            <label class="form-label">Kart Sahibi</label>
+            <input asp-for="CardHolder" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Kart Numarası</label>
+            <input asp-for="CardNumber" class="form-control" maxlength="16" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Son Kullanma (MM/YY)</label>
+            <input asp-for="Expiration" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CVV</label>
+            <input asp-for="CVV" class="form-control" maxlength="4" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Kaydet</button>
+        <a href="/Account/CreditCards" class="btn btn-secondary">İptal</a>
+    </form>
+</div>
